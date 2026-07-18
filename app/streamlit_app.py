@@ -13,6 +13,10 @@ import os
 import pickle
 import warnings
 warnings.filterwarnings('ignore')
+from pathlib import Path
+
+# Ensure working directory is always the project root
+os.chdir(Path(__file__).parent.parent)
 
 import numpy as np
 import pandas as pd
