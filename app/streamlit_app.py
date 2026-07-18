@@ -15,6 +15,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import subprocess
 from pathlib import Path
+import streamlit as st
 
 # Auto-run pipeline if processed data doesn't exist
 if not Path("data/processed/scored_accounts.csv").exists():
@@ -27,7 +28,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import streamlit as st
 from sklearn.preprocessing import LabelEncoder
 
 # ── Page config ──────────────────────────────────────────────────────────────
