@@ -179,7 +179,9 @@ ARR estimates are model-derived: perturb input features, re-score all accounts, 
 
 ### Stage 6: Executive Dashboard
 
-Three-tab Streamlit application.
+Three-tab Streamlit application. 
+
+[View Dashboard](https://gtmrevenueprotection.streamlit.app/)
 
 **Tab 1: AE Alert Feed**
 - KPI row: total accounts, high-risk count, critical risk count, ARR at risk
