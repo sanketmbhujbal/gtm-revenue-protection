@@ -9,7 +9,7 @@ Run from project root:
     streamlit run app/streamlit_app.py
 """
 
-import os
+import os, sys
 import pickle
 import warnings
 warnings.filterwarnings('ignore')
