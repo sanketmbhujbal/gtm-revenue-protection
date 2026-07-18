@@ -16,13 +16,6 @@ warnings.filterwarnings('ignore')
 import subprocess
 from pathlib import Path
 import streamlit as st
-
-# Auto-run pipeline if processed data doesn't exist
-if not Path("data/processed/scored_accounts.csv").exists():
-    with st.spinner("First run detected; generating data and running pipeline (takes ~60 seconds)..."):
-        subprocess.run(["python", "run_pipeline.py"], check=True)
-    st.rerun()
-
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -37,6 +30,25 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+
+# Always resolve project root relative to this file
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
+os.chdir(PROJECT_ROOT)
+ 
+# Auto-run pipeline if processed data doesn't exist
+if not (PROJECT_ROOT / "data" / "processed" / "scored_accounts.csv").exists():
+    with st.spinner("First run: generating data and running pipeline (~60 seconds)..."):
+        result = subprocess.run(
+            [sys.executable, str(PROJECT_ROOT / "run_pipeline.py")],
+            capture_output=True,
+            text=True,
+            cwd=str(PROJECT_ROOT),
+        )
+    if result.returncode != 0:
+        st.error("Pipeline failed. See details below.")
+        st.code(result.stderr or result.stdout)
+        st.stop()
+    st.rerun()
 
 ACCENT = "#1F4E79"
 BLUE2  = "#2E75B6"
