@@ -13,10 +13,14 @@ import os
 import pickle
 import warnings
 warnings.filterwarnings('ignore')
+import subprocess
 from pathlib import Path
 
-# Ensure working directory is always the project root
-os.chdir(Path(__file__).parent.parent)
+# Auto-run pipeline if processed data doesn't exist
+if not Path("data/processed/scored_accounts.csv").exists():
+    with st.spinner("First run detected; generating data and running pipeline (takes ~60 seconds)..."):
+        subprocess.run(["python", "run_pipeline.py"], check=True)
+    st.rerun()
 
 import numpy as np
 import pandas as pd
